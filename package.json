@@ -1,0 +1,15 @@
+{
+  "name": "BasicChat",
+  "version": "0.0.1",
+  "description": "Basic Chat Application",
+  "main": "chat.js",
+  "scripts": {
+    "test": "nodemon chat.js"
+  },
+  "author": "PAVAN",
+  "license": "MIT",
+  "dependencies": {
+    "express": "latest",
+    "socket.io": "latest"
+  }
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>  
+<html lang="en">
+<head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+    <body>
+    <ul id="allmessages"></ul>
+    <form action="">
+      <input id="userid" autocomplete="off" /><button type="submit">Send</button>
+    </form>
+    <script>
+      var socket = io();
+      $('form').submit(function(e){
+        e.preventDefault();
+        socket.emit('chat-message', $('#userid').val());
+        $('#userid').val('');
+      });
+      socket.on('chat-message', function(msg){
+        $('#allmessages').append($('<li>').text(msg));
+      });
+    </script>
+  </body>
+</html>
