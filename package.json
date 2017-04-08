@@ -3,8 +3,11 @@
   "version": "0.0.1",
   "description": "Basic Chat Application",
   "main": "chat.js",
+  "engines": {
+  "node": "^6.2.0"
+  },
   "scripts": {
-    "test": "node chat.js"
+    "start": "node chat.js"
   },
   "author": "PAVAN",
   "license": "MIT",

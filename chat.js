@@ -13,13 +13,14 @@ var users = {};
 //  });
 
 app.use(express.static(__dirname + "/public"));
+console.log(__dirname);
 
 io.on('connection', function(clientSocket){
 
 	clientSocket.on('join', function(name){
 		users[clientSocket.id] = name;
 		clientSocket.emit('update', "You have connected to the chat room!!");
-		io.sockets.emit('update', "Hello everybody " + name + " has joined the chat room, send a message!");
+		io.sockets.emit('update', "Hello everybody, " + name + " has joined the chat room, send a message!");
 	});
 
 	console.log('User is connected');
