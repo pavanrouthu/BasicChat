@@ -4,7 +4,7 @@
   "description": "Basic Chat Application",
   "main": "chat.js",
   "scripts": {
-    "test": "nodemon chat.js"
+    "test": "node chat.js"
   },
   "author": "PAVAN",
   "license": "MIT",
