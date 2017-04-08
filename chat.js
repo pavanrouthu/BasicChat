@@ -8,6 +8,9 @@ var server = http.createServer(app);
 var io = socketIO(server);
 var users = {};
 	
+app.get('/', function(request, response) {
+ response.send('My Chat application started running!');
+ });
 
 app.use(express.static(__dirname + "/public"));
 
