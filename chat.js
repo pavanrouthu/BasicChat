@@ -32,6 +32,6 @@ io.on('connection', function(clientSocket){
 });
 
 
-server.listen(3000, function(){
-  console.log('Server is listening on :3000');
+server.listen(port, function(){
+  console.log('Server is listening on :' + port);
 });
