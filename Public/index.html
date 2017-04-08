@@ -26,11 +26,11 @@
                           <h4 class="modal-title">Please Join</h1>
                         </div>
                         <div class="modal-body">
-                          <form class="form-inline" action="">
+                          <form class="form-inline" id="joinForm" action="">
                             <div class="input-group">           
-                                <input type="text" class="form-control" placeholder="join chat..." id="joinid"/>
+                                <input type="text" class="form-control" placeholder="Please enter your name..." id="nameid"/>
                                 <span class="input-group-btn">
-                                  <button class="btn btn-info" type="submit">Join Chat</button>
+                                  <button class="btn btn-info" type="submit" data-dismiss = "modal" id="joinChat">Join Chat</button>
                                 </span>            
                             </div>
                           </form>
@@ -41,7 +41,17 @@
           </div>
         </form>
       </div>
-      <div class="panel-body"><ul id="allmessages"></ul></div>
+      <div class="panel-body">
+        <!-- <ul id="allmessages"></ul> -->
+        <div class="row">
+          <div class="span2">
+              <ul id="user" class="unstyled"></ul>
+          </div>
+          <div class="span4">
+              <ul id="allmessages" class="unstyled"></ul><br/> 
+          </div>
+        </div>
+      </div>
       <div class="panel-footer"> 
         <form class="form-inline" action="">
           <div class="input-group">           
@@ -62,8 +72,20 @@
         socket.emit('chat-message', $('#userid').val());
         $('#userid').val('');
       });
-      socket.on('chat-message', function(msg){
-        $('#allmessages').append($('<li>').text(msg));
+
+      socket.on('chat-message', function(user, msg){
+        $('#allmessages').append("<br/> " + user + " says: " + msg + "<br/> ");
+      });
+
+      $('#joinChat').click(function(){
+        var name = $('#nameid').val();
+        if (name != " "){
+          socket.emit("join", name);
+        }
+      });
+
+      socket.on('update', function(msg){
+        $('#allmessages').append(" <br/>" + msg + " <br/>");
       });
 
     </script>
