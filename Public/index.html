@@ -2,26 +2,25 @@
 <html lang="en">
 <head>
   <title>Chat awe awe awesomeness</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <script src="/socket.io/socket.io.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-<body>
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="panel panel-info">
+<body style="padding-top:50px;">
+<div class="container" style="height:100px">
+  <div class="row col-xs-12 col-md-offset-2 col-md-8 col-lg-8 col-lg-offset-2">
+    <div class="col-sm-12 thumbnail">
+      <div class="panel panel-info text-center">
         <div>
-          <div class="pull-left" style="margin-right:50px">
+          <div class="pull-center">
             <h4><small>Please click the Join button to join the chat</small></h4>
           </div>
           <div>
-            <form class="form-inline" action="">
-              <div class="input-group">     
-                  <span class="input-group-btn">
-                    <button class="btn btn-info" id="join" type="button" data-toggle="modal" data-target="#joinModal">Join</button>
-                  </span>
+            <form class="form" action="">
+                     <button class="btn btn-primary" id="join" type="button" data-toggle="modal" data-target="#joinModal">Join</button>
                      <div class="modal fade" id="joinModal" role="dialog">
                         <div class="modal-dialog modal-sm">
                           <div class="modal-content">
@@ -32,7 +31,7 @@
                             <div class="modal-body">
                               <form class="form-inline" id="joinForm" action="">
                                 <div class="input-group">           
-                                    <input type="text" class="form-control" placeholder="Please enter your name..." id="nameid"/>
+                                    <input type="text" class="form-control" placeholder="Please enter your name..." id="nameid" autofocus/>
                                     <span class="input-group-btn">
                                       <button class="btn btn-info" type="submit" data-dismiss = "modal" id="joinChat">Join Chat</button>
                                     </span>            
@@ -42,7 +41,6 @@
                           </div>
                         </div>
                       </div>          
-              </div>
             </form>
           </div>
         </div>
@@ -59,15 +57,17 @@
           </div>
         </div>
       </div>
-      <div class="panel-footer"> 
-        <form class="form-inline" id="msgForm" action="">
+      <div class="row-fluid">
+      <div class="panel-footer text-center"> 
+        <form id="msgForm" action="">
           <div class="input-group">           
               <input type="text" class="form-control" placeholder="enter message..." id="userMsg"/>
               <span class="input-group-btn">
-                <button class="btn btn-info" id="sendButton" type="submit">SEND</button>
+                <button class="btn btn-success go inline" id="sendButton" type="submit">SEND</button>
               </span>            
           </div>
         </form>
+      </div>
       </div>
     </div>
   </div>
