@@ -10,36 +10,43 @@
 <body>
 <div class="container">
   <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-12">
       <div class="panel panel-info">
-        <form class="form-inline" action="">
-          <div class="input-group">     
-<!--               <input type="text" class="form-control" placeholder="Join the room..." id="userid"/> -->
-              <span class="input-group-btn">
-                <button class="btn btn-info" id="join" type="button" data-toggle="modal" data-target="#joinModal">Join</button>
-              </span>  
-                  <div class="modal fade" id="joinModal" role="dialog">
-                    <div class="modal-dialog modal-sm">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title">Please Join</h1>
-                        </div>
-                        <div class="modal-body">
-                          <form class="form-inline" id="joinForm" action="">
-                            <div class="input-group">           
-                                <input type="text" class="form-control" placeholder="Please enter your name..." id="nameid"/>
-                                <span class="input-group-btn">
-                                  <button class="btn btn-info" type="submit" data-dismiss = "modal" id="joinChat">Join Chat</button>
-                                </span>            
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>          
+        <div>
+          <div class="pull-left" style="margin-right:50px">
+            <h4><small>Please click the Join button to join the chat</small></h4>
           </div>
-        </form>
+          <div>
+            <form class="form-inline" action="">
+              <div class="input-group">     
+                  <span class="input-group-btn">
+                    <button class="btn btn-info" id="join" type="button" data-toggle="modal" data-target="#joinModal">Join</button>
+                  </span>
+                     <div class="modal fade" id="joinModal" role="dialog">
+                        <div class="modal-dialog modal-sm">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h4 class="modal-title">Please Join</h1>
+                            </div>
+                            <div class="modal-body">
+                              <form class="form-inline" id="joinForm" action="">
+                                <div class="input-group">           
+                                    <input type="text" class="form-control" placeholder="Please enter your name..." id="nameid"/>
+                                    <span class="input-group-btn">
+                                      <button class="btn btn-info" type="submit" data-dismiss = "modal" id="joinChat">Join Chat</button>
+                                    </span>            
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>          
+              </div>
+            </form>
+          </div>
+        </div>
+
       </div>
       <div class="panel-body">
         <!-- <ul id="allmessages"></ul> -->
@@ -53,11 +60,11 @@
         </div>
       </div>
       <div class="panel-footer"> 
-        <form class="form-inline" action="">
+        <form class="form-inline" id="msgForm" action="">
           <div class="input-group">           
               <input type="text" class="form-control" placeholder="enter message..." id="userid"/>
               <span class="input-group-btn">
-                <button class="btn btn-info" type="submit">SEND</button>
+                <button class="btn btn-info" id="sendButton" type="submit">SEND</button>
               </span>            
           </div>
         </form>
@@ -66,6 +73,13 @@
   </div>
 </div>    
     <script>
+
+    $(document).ready(function(){
+      $("#userid").attr("disabled", "disabled");
+      $("#sendButton").attr("disabled", "disabled");
+
+    });
+
       var socket = io.connect();
       $('form').submit(function(e){
         e.preventDefault();
@@ -82,6 +96,8 @@
         if (name != " "){
           socket.emit("join", name);
         }
+        $("#userid").removeAttr('disabled');
+        $("#sendButton").removeAttr('disabled');
       });
 
       socket.on('update', function(msg){
