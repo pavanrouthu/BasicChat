@@ -8,12 +8,12 @@ var server = http.createServer(app);
 var io = socketIO(server);
 var users = {};
 	
-// app.get('/', function(request, response) {
-//  response.send('My Chat application started running!');
-//  });
-
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/"));
 console.log(__dirname);
+
+app.get('/', function(request, response) {
+ response.sendFile(__dirname + '/index.html');
+ });
 
 io.on('connection', function(clientSocket){
 
