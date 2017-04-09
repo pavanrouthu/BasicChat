@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Chat awe awe awesomeness</title>
   <script src="/socket.io/socket.io.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
@@ -46,23 +46,23 @@
             </form>
           </div>
         </div>
-
       </div>
       <div class="panel-body">
-        <!-- <ul id="allmessages"></ul> -->
         <div class="row">
-          <div class="span2">
-              <ul id="user" class="unstyled"></ul>
-          </div>
-          <div class="span4">
-              <ul id="allmessages" class="unstyled"></ul><br/> 
+          <div id="chatWrap" style="min-height: 200px; max-height:200px; overflow-y:auto">
+            <div class="span2">
+                <ul id="user" class="unstyled"></ul>
+            </div>
+            <div class="span4" id="chat">
+                <ul id="allmessages" class="unstyled"></ul><br/> 
+            </div>
           </div>
         </div>
       </div>
       <div class="panel-footer"> 
         <form class="form-inline" id="msgForm" action="">
           <div class="input-group">           
-              <input type="text" class="form-control" placeholder="enter message..." id="userid"/>
+              <input type="text" class="form-control" placeholder="enter message..." id="userMsg"/>
               <span class="input-group-btn">
                 <button class="btn btn-info" id="sendButton" type="submit">SEND</button>
               </span>            
@@ -73,22 +73,24 @@
   </div>
 </div>    
     <script>
+      $(document).ready(function(){
+        $("#userMsg").attr("disabled", "disabled");
+        $("#sendButton").attr("disabled", "disabled");
+      });
 
-    $(document).ready(function(){
-      $("#userid").attr("disabled", "disabled");
-      $("#sendButton").attr("disabled", "disabled");
-
-    });
+      var chatOuter=$('#chatWrap');
+      var chatInner=$('#chat');
 
       var socket = io.connect();
       $('form').submit(function(e){
         e.preventDefault();
-        socket.emit('chat-message', $('#userid').val());
-        $('#userid').val('');
+        socket.emit('chat-message', $('#userMsg').val());
+        $('#userMsg').val('');
       });
 
       socket.on('chat-message', function(user, msg){
         $('#allmessages').append("<br/> " + user + " says: " + msg + "<br/> ");
+        scrollCorrect();
       });
 
       $('#joinChat').click(function(){
@@ -96,13 +98,17 @@
         if (name != " "){
           socket.emit("join", name);
         }
-        $("#userid").removeAttr('disabled');
+        $("#userMsg").removeAttr('disabled');
         $("#sendButton").removeAttr('disabled');
       });
 
       socket.on('update', function(msg){
         $('#allmessages').append(" <br/>" + msg + " <br/>");
       });
+
+      function scrollCorrect(){
+           chatOuter.scrollTop(chatInner.outerHeight());
+      }
 
     </script>
 
