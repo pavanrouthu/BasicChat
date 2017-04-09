@@ -18,9 +18,15 @@ app.get('/', function(request, response) {
 io.on('connection', function(clientSocket){
 
 	clientSocket.on('join', function(name){
+		if (name == ""){
+			name = "Guest" + Math.round(random(100, 999));
+		}
 		users[clientSocket.id] = name;
 		clientSocket.emit('update', "You have connected to the chat room!!");
 		io.sockets.emit('update', "Hello everybody, " + name + " has joined the chat room, send a message!");
+		function random (low, high) {
+    			return Math.random() * (high - low) + low;
+		}
 	});
 
 	console.log('User is connected');
